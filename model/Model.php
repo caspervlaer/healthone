@@ -103,5 +103,27 @@ class Model
         return -1;
         // id hoeft niet te worden toegevoegd omdat de id in de databse op autoincrement staat.
     }
+    public function login($username, $wachtwoord){
+        $this->makeConnection();
+        $selection = $this->database->prepare(
+            'SELECT * FROM `users` WHERE `users`.`username` =:username');
+        $selection->bindParam(":username",$username);
+        $result = $selection ->execute();
+        if ($result){
+            $selection->setFetchMod(\PDO::FETCH_CLASS, \model\User::class);
+            $user = $selection->fetch();
+            if ($user){
+                $gehashtpassword = strtoupper(hash(" "), $wachtwoord);
+                if ($user->getWachtwoord() == $gehashtpassword){
+                    $_SESSION['user']=$user->getName();
+                    $_SESSION['roles']=$user->getRole();
+                }
+            }
+        }
+    }
+    public function logout(){
+        session_unset();
+        session_destroy();
+    }
 
 }
