@@ -108,20 +108,24 @@ class Model
         $selection = $this->database->prepare(
             'SELECT * FROM `users` WHERE `users`.`username` =:username');
         $selection->bindParam(":username",$username);
-        $result = $selection ->execute();
+        $result = $selection->execute();
         if ($result){
             $selection->setFetchMod(\PDO::FETCH_CLASS, \model\User::class);
             $user = $selection->fetch();
             if ($user){
-                $gehashtpassword = strtoupper(hash(" "), $wachtwoord);
+                $gehashtpassword = strtoupper(hash("sha256"), $wachtwoord);
                 if ($user->getWachtwoord() == $gehashtpassword){
-                    $_SESSION['user']=$user->getName();
-                    $_SESSION['roles']=$user->getRole();
+                    $_SESSION['user']=$user->__get("name");
+                    $_SESSION['roles']=$user->__get("role");
+                    $_SESSION['loggedin']="true";
+                } else{
+                    echo "wrong password";
                 }
             }
         }
     }
     public function logout(){
+        $_SESSION['loggedin']="false";
         session_unset();
         session_destroy();
     }

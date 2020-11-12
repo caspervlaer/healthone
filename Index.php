@@ -7,8 +7,11 @@ use controller\Controller;
 include_once ("controller/Controller.php");
 
 $controller = new Controller();
+//session_start();
+//&& isset($_SESSION['loggedin'])
+//if ($_SESSION["loggedin"]=="true"){
 
-
+//}
 
 
 if(isset($_POST['showForm']))
@@ -34,8 +37,12 @@ else if(isset($_POST['delete']))
 else if (isset($_POST['adduser'])){
     $controller->createUserAction($_POST['adduser']);
 }
-// READ:  overzicht alle patienten
+// READ:  formulier inloggen user
+else if (isset($_POST['login'])){
+    $controller->loginAction();
+}
+// READ:  overzicht login pagina
 else
 {
-    $controller->readPatientenAction();
+    $controller->readLoginAction();
 }

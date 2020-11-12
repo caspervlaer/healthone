@@ -141,4 +141,48 @@ class View
         </html>";
         }
     }
+    public function showLogin(){
+        echo "<!DOCTYPE html>
+                <html lang=\"en\">
+                <head>
+                    <meta charset=\"UTF-8\">
+                    <title>Overzicht patienten</title>
+                    <style>
+                        #patienten{
+                            display:grid;
+                            grid-template-columns:repeat(4,1fr);                
+                            grid-column-gap:10px;
+                            grid-row-gap:10px;
+                            justify-content: center;
+                        }
+                        .patient{
+                            width:80%;
+                            background-color:#ccccff;
+                            color:darkslategray;
+                            font-size:24px;
+                            padding:10px;
+                            border-radius:10px;
+                        }
+                    </style>
+                </head>
+                <body>
+                <h2>Login</h2>
+                <form method='post' action='index.php'>
+                <table class='login'>
+                    <tr><td></td><td>
+                        <input type=\"hidden\" name=\"id\" value=''/></td></tr>
+                    <tr><td>   
+                        <label for=\"naam\">user naam</label></td><td>
+                        <input type=\"text\" name=\"naam\" value= ''/></td></tr>                               
+                    <tr><td>
+                        <label for=\"wachtwoord\">wachtwoord</label></td><td>
+                        <input type=\"text\" name=\"wachtwoord\" value = ''/></td></tr>
+                    <tr><td>
+                        <input type='submit' name='login' value='login'></td><td>
+                    </td></tr>
+                </table>
+                </form>            
+                </body>
+                </html>";
+    }
 }

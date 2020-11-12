@@ -9,6 +9,7 @@ class User
     private $name;
     private $wachtwoord;
     private $role;
+    private $apotheek;
     private $id;
 
     public function __get($property) {

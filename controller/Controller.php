@@ -20,6 +20,9 @@ class Controller
     public function readPatientenAction(){
         $this->view->showPatienten();
     }
+    public function readLoginAction(){
+        $this->view->showLogin();
+    }
     public function showFormPatientAction($id=null){
         $this->view->showFormPatienten($id);
     }
@@ -54,6 +57,12 @@ class Controller
         $apotheek = filter_input(INPUT_POST,'apotheek');
         $result = $this->model->insertUser($naam,$wachtwoord,$apotheek);
         //$this->view->showPatienten($result);
+    }
+    public function loginAction(){
+        $naam = filter_input(INPUT_POST,'naam');
+        $wachtwoord = filter_input(INPUT_POST,'wachtwoord');
+        $result = $this->model->login($naam,$wachtwoord);
+        return $result;
     }
 
 
