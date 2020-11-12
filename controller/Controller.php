@@ -17,16 +17,11 @@ class Controller
         $this->model = new Model();
         $this->view = new View($this->model);
     }
-    public function getView()
-    {
-        return $this->view;
+    public function readPatientenAction(){
+        $this->view->showPatienten();
     }
-    public function updateModel($id, $name, $maker, $compansated, $side_efect, $benefits){
-
-        $this->model->setDrug($id, $name, $maker, $compansated, $side_efect, $benefits);
-    }
-    public function updateView() {
-        $this->view->viewContent();
+    public function showFormPatientAction($id=null){
+        $this->view->showFormPatienten($id);
     }
     public function createPatientAction(){
         $naam = filter_input(INPUT_POST,'naam');
@@ -37,6 +32,28 @@ class Controller
         $zknummer = filter_input(INPUT_POST,'zknummer');
         $result = $this->model->insertPatient($naam,$adres,$woonplaats,$geboortedatum,$zknummer,$soortverzekering);
         $this->view->showPatienten($result);
+    }
+    public function updatePatientAction(){
+        $id = filter_input(INPUT_POST,'id');
+        $naam = filter_input(INPUT_POST,'naam');
+        $adres = filter_input(INPUT_POST,'adres');
+        $woonplaats = filter_input(INPUT_POST,'woonplaats');
+        $geboortedatum = filter_input(INPUT_POST,'geboortedatum');
+        $zknummer = filter_input(INPUT_POST,'zknummer');
+        $soortverzekering = filter_input(INPUT_POST,'soortverzekering');
+        $result=$this->model->updatePatient($id,$naam,$adres,$woonplaats,$geboortedatum,$zknummer,$soortverzekering);
+        $this->view->showPatienten($result);
+    }
+    public function deletePatientAction($id){
+        $result = $this->model->deletePatient($id);
+        $this->view->showPatienten($result);
+    }
+    public function createUserAction(){
+        $naam = filter_input(INPUT_POST,'naam');
+        $wachtwoord = filter_input(INPUT_POST,'wachtwoord');
+        $apotheek = filter_input(INPUT_POST,'apotheek');
+        $result = $this->model->insertUser($naam,$wachtwoord,$apotheek);
+        //$this->view->showPatienten($result);
     }
 
 

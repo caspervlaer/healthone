@@ -11,27 +11,7 @@ class User
     private $role;
     private $id;
 
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function getWachtwoord()
-    {
-        return $this->wachtwoord;
-    }
-
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /*public function __get($property) {
+    public function __get($property) {
         if (property_exists($this, $property)) {
             return $this->$property;
         }
@@ -42,7 +22,7 @@ class User
             $this->$property = $value;
         }
         return $this;
-    }*/
+    }
 
 
 }

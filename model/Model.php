@@ -7,38 +7,50 @@ include_once ("model/Patient.php");
 
 class Model
 {
-    private $drug;
-    private $patient;
-    private $user;
-    public $content;
     private $database;
-
-    public function __construct()
-    {
-        $this->content = "<form method='post' action='index.php'>
-                           Name: <input type='text' name='name'>
-                           Wachtwoord: <input type='text' name='wacht'>
-                           <input type='submit'>";
-    }
 
     private function makeConnection(){
         $this->database = new \PDO('mysql:host=localhost;dbname=healthone', "root", "");
     }
 
-    public function insertUser($naam,$wacht,$roles){
+    public function insertPatient($naam,$adres,$woonplaats,$geboortedatum,$zknummer,$soortverzekering){
         $this->makeConnection();
         if($naam !='')
         {
             $query = $this->database->prepare (
-                "INSERT INTO `users` (`id`, `naam`, `wacht`, `roles`) 
-                VALUES (NULL, :naam, :wacht, :roles)");
+                "INSERT INTO `patienten` (`id`, `naam`, `adres`, `woonplaats`, `zknummer`, `geboortedatum`, `soortverzekering`) 
+                VALUES (NULL, :naam, :adres, :woonplaats, :zknummer, :geboortedatum, :soortverzekering)");
             $query->bindParam(":naam", $naam);
-            $query->bindParam(":wacht", strtoupper(hash("sha256", $wacht)));
-            $query->bindParam(":roles", $roles);
+            $query->bindParam(":adres", $adres);
+            $query->bindParam(":woonplaats",$woonplaats);
+            $query->bindParam(":zknummer", $zknummer);
+            $query->bindParam(":geboortedatum", $geboortedatum);
+            $query->bindParam(":soortverzekering",$soortverzekering);
             $result = $query->execute();
             return $result;
         }
         return -1;
+        // id hoeft niet te worden toegevoegd omdat de id in de databse op autoincrement staat.
+
+
+    }
+    public function updatePatient($id,$naam,$adres,$woonplaats,$geboortedatum,$zknummer,$soortverzekering){
+        $this->makeConnection();
+
+        // id moet worden toegevoegd omdat de id in de databse wordt gezocht
+        $query = $this->database->prepare (
+            "UPDATE `patienten` SET `naam` = :naam, `adres`=:adres, `woonplaats` = :woonplaats,
+            `zknummer`=:zknummer, `geboortedatum`=:geboortedatum, `soortverzekering`=:soortverzekering 
+            WHERE `patienten`.`id` = :id ");
+        $query->bindParam(":id", $id);
+        $query->bindParam(":naam", $naam);
+        $query->bindParam(":adres", $adres);
+        $query->bindParam(":woonplaats",$woonplaats);
+        $query->bindParam(":zknummer", $zknummer);
+        $query->bindParam(":geboortedatum", $geboortedatum);
+        $query->bindParam(":soortverzekering",$soortverzekering);
+        $result = $query->execute();
+        return $result;
     }
 
     public function getPatienten(){
@@ -51,53 +63,45 @@ class Model
         }
         return null;
     }
+    public function selectPatient($id){
 
-    public function login($username, $wachtwoord){
         $this->makeConnection();
         $selection = $this->database->prepare(
-            'SELECT * FROM `users` WHERE `users`.`username` =:username');
-        $selection->bindParam(":username",$username);
+            'SELECT * FROM `patienten` 
+            WHERE `patienten`.`id` =:id');
+        $selection->bindParam(":id",$id);
         $result = $selection ->execute();
-        if ($result){
-            $selection->setFetchMod(\PDO::FETCH_CLASS, \model\User::class);
-            $user = $selection->fetch();
-            if ($user){
-                $gehashtpassword = strtoupper(hash(" "), $wachtwoord);
-                if ($user->getWachtwoord() == $gehashtpassword){
-                    $_SESSION['user']=$user->getName();
-                    $_SESSION['roles']=$user->getRole();
-                }
-            }
+        if($result){
+            $selection->setFetchMode(\PDO::FETCH_CLASS, \model\Patient::class);
+            $patient = $selection->fetch();
+            return $patient;
         }
+        return null;
     }
-    public function logout(){
-        session_unset();
-        session_destroy();
+    public function deletePatient($id){
+        $this->makeConnection();
+        $selection = $this->database->prepare(
+            'DELETE FROM `patienten` 
+            WHERE `patienten`.`id` =:id');
+        $selection->bindParam(":id",$id);
+        $result = $selection ->execute();
+        return $result;
     }
-
-    public function getDrug()
-    {
-        return $this->drug;
-    }
-
-    public function setDrug($id, $name, $maker, $compansated, $side_efect, $benefits)
-    {
-        $this->drug = new Drug($id, $name, $maker, $compansated, $side_efect, $benefits);
-    }
-
-    public function getContent()
-    {
-        return $this->content;
-    }
-
-    public function setContent($content)
-    {
-        $this->content = $content;
-    }
-
-    public function setUser($name, $wachtwoord, $role, $id)
-    {
-        $this->user = new User($name, $wachtwoord, $role, $id);
+    public function insertUser($naam,$wachtwoord,$apotheek){
+        $this->makeConnection();
+        if($naam !='')
+        {
+            $query = $this->database->prepare (
+                "INSERT INTO `apothekers` (`id`, `naam`, `wachtwoord`, `apotheek`) 
+                VALUES (NULL, :naam, :wachtwoord, :apotheek)");
+            $query->bindParam(":naam", $naam);
+            $query->bindParam(":wachtwoord", $wachtwoord);
+            $query->bindParam(":apotheek",$apotheek);
+            $result = $query->execute();
+            return $result;
+        }
+        return -1;
+        // id hoeft niet te worden toegevoegd omdat de id in de databse op autoincrement staat.
     }
 
 }

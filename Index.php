@@ -9,8 +9,7 @@ include_once ("controller/Controller.php");
 $controller = new Controller();
 
 
-//$controller->updateModel(1,"poep","leo", "geen", "niks" , "geen");
-//$controller->updateView();
+
 
 if(isset($_POST['showForm']))
 {
@@ -30,6 +29,10 @@ else if(isset($_POST['create']))
 else if(isset($_POST['delete']))
 {
     $controller->deletePatientAction($_POST['delete']);
+}
+// CREATE: formulier afhandeling nieuwe user
+else if (isset($_POST['adduser'])){
+    $controller->createUserAction($_POST['adduser']);
 }
 // READ:  overzicht alle patienten
 else

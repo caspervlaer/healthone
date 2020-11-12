@@ -1,22 +1,19 @@
 <?php
 namespace view;
 use model\Model;
-
+include_once ('model/Model.php');
+use model\Patient;
+include_once('model/Patient.php');
 class View
 {
-    private $model;
-    private $content;
-    //constructor
-    public function __construct(Model $model)
-    {
-        $this->model = $model;
-        $this->content = "Tractors";
-        //echo "<hr>create account : ".$this->model->getContent();
 
+    private $model;
+    public function __construct($model){
+        $this->model = $model;
     }
     public function showPatienten($result = null){
         if($result == 1){
-            echo "<h4>Action proceeded</h4>";
+            echo "<h4>Actie geslaagd</h4>";
         }
         $patienten = $this->model->getPatienten();
 
@@ -46,25 +43,25 @@ class View
                 </head>
                 <body>";
         echo "<h2>Patienten overzicht</h2> <form action='index.php' method='post'>
-            <input type='hidden' name='showForm' value='0'>
-            <input type='submit' value='toevoegen'/>
-            </form></div></body></html>";
+                               <input type='hidden' name='showForm' value='0'>
+                               <input type='submit' value='toevoegen'/>
+                               </form></div></body></html>";
         if($patienten !== null) { echo "
-            <div id=\"patienten\">";
-                foreach ($patienten as $patient) {
-                    echo "<div class=\"patient\">
+                        <div id=\"patienten\">";
+            foreach ($patienten as $patient) {
+                echo "<div class=\"patient\">
                                        
-                         $patient->naam<br />
-                         $patient->adres<br />
-                         $patient->woonplaats<br />
-                         $patient->zknummer<br />
-                         $patient->geboortedatum<br />
-                         $patient->soortverzekering<br />
-                         <form action='index.php' method='post'>
-                         <input type='hidden' name='showForm' value='$patient->id'><input type='submit' value='wijzigen'/></form>
-                         <form action='index.php' method='post'>
-                         <input type='hidden' name='delete' value='$patient->id'><input type='submit' value='verwijderen'/></form>
-                         </div>";
+                                      $patient->naam<br />
+                                      $patient->adres<br />
+                                      $patient->woonplaats<br />
+                                      $patient->zknummer<br />
+                                      $patient->geboortedatum<br />
+                                      $patient->soortverzekering<br />
+                                      <form action='index.php' method='post'>
+                                       <input type='hidden' name='showForm' value='$patient->id'><input type='submit' value='wijzigen'/></form>
+                                        <form action='index.php' method='post'>
+                                       <input type='hidden' name='delete' value='$patient->id'><input type='submit' value='verwijderen'/></form>
+                                    </div>";
             }
         }
         else{
@@ -72,5 +69,76 @@ class View
         }
 
     }
-
+    public function showFormPatienten($id=null){
+        if($id !=null && $id !=0){
+            $patient = $this->model->selectPatient($id);
+        }
+        /*de html template */
+        echo "<!DOCTYPE html>
+        <html lang=\"en\">
+        <head>
+            <meta charset=\"UTF-8\">
+            <title>Beheer patientengegevens</title>
+        </head><body>
+        <h2>Formulier patientgegevens</h2>";
+        if(isset($patient)){
+            echo "<form method='post' >
+        <table>
+            <tr><td></td><td>
+                <input type=\"hidden\" name=\"id\" value='$id'/></td></tr>
+             <tr><td>   <label for=\"naam\">Patient naam</label></td><td>
+                <input type=\"text\" name=\"naam\" value= '".$patient->naam."'/></td></tr>
+            <tr><td>
+                <label for=\"adres\">adres</label></td><td>
+                <input type=\"text\" name=\"adres\" value = '".$patient->adres."'/></td></tr>
+            <tr><td>
+                <label for=\"woonplaats\">woonplaats</label></td><td>
+                <input type=\"text\" name=\"woonplaats\" value= '".$patient->woonplaats."'/></td></tr>
+            <tr><td>
+                <label for=\"geboortedatum\">geboortedatum</label></td><td>
+                <input type=\"text\" name=\"geboortedatum\" value= '".$patient->geboortedatum."'/></td></tr>
+            <tr><td>
+                <label for=\"zknummer\">zknummer</label></td><td>
+                <input type=\"text\" name=\"zknummer\" value= '".$patient->zknummer."'/></td></tr>
+                 <tr><td>
+                <label for=\"soortverzekering\">soortverzekering</label></td><td>
+                <input type=\"text\" name=\"soortverzekering\" value= '".$patient->soortverzekering."'/></td></tr>
+            <tr><td>
+                <input type='submit' name='update' value='opslaan'></td><td>
+            </td></tr></table>
+            </form>
+        </body>
+        </html>";
+        }
+        else{
+            /*de html template */
+            echo "<form method='post' action='index.php'>
+        <table>
+            <tr><td></td><td>
+                <input type=\"hidden\" name=\"id\" value=''/></td></tr>
+             <tr><td>   <label for=\"naam\">Patient naam</label></td><td>
+                <input type=\"text\" name=\"naam\" value= ''/></td></tr>
+            <tr><td>
+                <label for=\"adres\">adres</label></td><td>
+                <input type=\"text\" name=\"adres\" value = ''/></td></tr>
+            <tr><td>
+                <label for=\"woonplaats\">woonplaats</label></td><td>
+                <input type=\"text\" name=\"woonplaats\" value= ''/></td></tr>
+            <tr><td>
+                <label for=\"geboortedatum\">geboortedatum</label></td><td>
+                <input type=\"text\" name=\"geboortedatum\" value= ''/></td></tr>
+            <tr><td>
+                <label for=\"zknummer\">zknummer</label></td><td>
+                <input type=\"text\" name=\"zknummer\" value= ''/></td></tr>
+                 <tr><td>
+                <label for=\"soortverzekering\">soortverzekering</label></td><td>
+                <input type=\"text\" name=\"soortverzekering\" value= ''/></td></tr>
+            <tr><td>
+                <input type='submit' name='create' value='opslaan'></td><td>
+            </td></tr></table>
+            </form>
+        </body>
+        </html>";
+        }
+    }
 }
