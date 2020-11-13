@@ -65,6 +65,14 @@ class Model
         }
         return null;
     }
+    public function getUser(){
+        $this->makeConnection();
+        $selection = $this->database->query('SELECT * FROM `users`');
+        if($selection){
+            $result=$selection->fetchAll(\PDO::FETCH_CLASS,\model\User::class);
+            return $result;
+        }
+    }
     public function selectPatient($id){
 
         $this->makeConnection();
@@ -105,11 +113,11 @@ class Model
         return -1;
         // id hoeft niet te worden toegevoegd omdat de id in de databse op autoincrement staat.
     }
-    public function login($username, $wachtwoord){
+    public function login($name, $wachtwoord){
         $this->makeConnection();
         $selection = $this->database->prepare(
-            'SELECT * FROM `users` WHERE `users`.`username` =:username');
-        $selection->bindParam(":username",$username);
+            'SELECT * FROM `users` WHERE `users`.`name` =:name');
+        $selection->bindParam(":name",$name);
         $result = $selection->execute();
         if ($result){
             $selection->setFetchMode(\PDO::FETCH_CLASS, \model\User::class);
@@ -119,6 +127,7 @@ class Model
                 if ($user->__get("wachtwoord") == $gehashtpassword){
                     $_SESSION['user']=$user->__get("name");
                     $_SESSION['roles']=$user->__get("role");
+                    $_SESSION['apotheek']=$user->__get("apotheek");
                     $_SESSION['loggedin']="true";
                 } else{
                     $_SESSION['loggedin']="false";
@@ -130,6 +139,6 @@ class Model
     public function logout(){
         $_SESSION['loggedin']="false";
         session_unset();
-        session_destroy();
+
     }
 }

@@ -4,6 +4,8 @@ use model\Model;
 include_once ('model/Model.php');
 use model\Patient;
 include_once('model/Patient.php');
+use model\User;
+include_once ('model/User.php');
 class View
 {
 
@@ -16,6 +18,9 @@ class View
             echo "<h4>Actie geslaagd</h4>";
         }
         $patienten = $this->model->getPatienten();
+        $users = $this->model->getUser();
+        $name = $_SESSION['user'];
+        $apotheek = $_SESSION['apotheek'];
 
         /*de html template */
         echo "<!DOCTYPE html>
@@ -45,7 +50,15 @@ class View
         echo "<h2>Patienten overzicht</h2> <form action='index.php' method='post'>
                                <input type='hidden' name='showForm' value='0'>
                                <input type='submit' value='toevoegen'/>
-                               </form></div></body></html>";
+                               </form></div>
+                                <div><h2>profile</h2>
+                                <a>name : $name</a><br />
+                                <a>apotheek : $apotheek</a></div><br />
+                               <form action='index.php' method='post'>
+                                <input type='hidden' name='logout' value='0'>
+                                <input type='submit' value='logout'/>
+                               </form><br />
+                                </body></html>";
         if($patienten !== null) { echo "
                         <div id=\"patienten\">";
             foreach ($patienten as $patient) {

@@ -70,6 +70,7 @@ class Controller
     }
     public function logoutAction(){
         $this->model->logout();
+        $this->view->showLogin();
     }
 
 
