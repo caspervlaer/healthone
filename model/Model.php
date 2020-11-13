@@ -4,6 +4,8 @@ use model\Drug;
 include_once("model/Drug.php");
 use model\Patient;
 include_once ("model/Patient.php");
+use model\User;
+include_once ("model/User.php");
 
 class Model
 {
@@ -110,15 +112,16 @@ class Model
         $selection->bindParam(":username",$username);
         $result = $selection->execute();
         if ($result){
-            $selection->setFetchMod(\PDO::FETCH_CLASS, \model\User::class);
+            $selection->setFetchMode(\PDO::FETCH_CLASS, \model\User::class);
             $user = $selection->fetch();
             if ($user){
-                $gehashtpassword = strtoupper(hash("sha256"), $wachtwoord);
-                if ($user->getWachtwoord() == $gehashtpassword){
+                $gehashtpassword = hash("sha256", $wachtwoord);
+                if ($user->__get("wachtwoord") == $gehashtpassword){
                     $_SESSION['user']=$user->__get("name");
                     $_SESSION['roles']=$user->__get("role");
                     $_SESSION['loggedin']="true";
                 } else{
+                    $_SESSION['loggedin']="false";
                     echo "wrong password";
                 }
             }
@@ -129,5 +132,4 @@ class Model
         session_unset();
         session_destroy();
     }
-
 }

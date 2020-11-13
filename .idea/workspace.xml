@@ -21,11 +21,9 @@
   <component name="ChangeListManager">
     <list default="true" id="1932489e-7ad7-4902-b0d7-15fabb5b486f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Index.php" beforeDir="false" afterPath="$PROJECT_DIR$/Index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/Controller.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/Model.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/Model.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/View.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +67,8 @@
       <workItem from="1605107687333" duration="1494000" />
       <workItem from="1605187169314" duration="3568000" />
       <workItem from="1605197138563" duration="98000" />
-      <workItem from="1605197268402" duration="4085000" />
+      <workItem from="1605197268402" duration="4279000" />
+      <workItem from="1605275858014" duration="2861000" />
     </task>
     <servers />
   </component>
@@ -89,6 +88,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1605277671235">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1160/0.0.1920.1040@0.0.1920.1040" timestamp="1605277671235" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1604925340766">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

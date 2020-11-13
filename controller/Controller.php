@@ -61,8 +61,15 @@ class Controller
     public function loginAction(){
         $naam = filter_input(INPUT_POST,'naam');
         $wachtwoord = filter_input(INPUT_POST,'wachtwoord');
-        $result = $this->model->login($naam,$wachtwoord);
-        return $result;
+        $this->model->login($naam,$wachtwoord);
+        if ($_SESSION['loggedin']=="true"){
+            $this->view->showPatienten();
+        } else{
+            $this->view->showLogin();
+        }
+    }
+    public function logoutAction(){
+        $this->model->logout();
     }
 
 

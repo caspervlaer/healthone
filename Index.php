@@ -41,6 +41,9 @@ else if (isset($_POST['adduser'])){
 else if (isset($_POST['login'])){
     $controller->loginAction();
 }
+else if (isset($_POST['logout'])){
+    $controller->logoutAction();
+}
 // READ:  overzicht login pagina
 else
 {
