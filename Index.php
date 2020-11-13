@@ -7,44 +7,40 @@ use controller\Controller;
 include_once ("controller/Controller.php");
 
 $controller = new Controller();
-//session_start();
-//&& isset($_SESSION['loggedin'])
-//if ($_SESSION["loggedin"]=="true"){
 
-//}
-
-
+// READ : it will show u the patienten screen
 if(isset($_POST['showForm']))
 {
     $controller->showFormPatientAction( $_POST['showForm']);
 }
-//  UPDATE: formulier afhandeling om een rij bij te werken
+//  UPDATE : changes info of a row of patients
 else if(isset($_POST['update']))
 {
     $controller->updatePatientAction();
 }
-// CREATE:  formulier afhandeling nieuwe rij
+// CREATE :  adds a new row of patients
 else if(isset($_POST['create']))
 {
     $controller->createPatientAction();
 }
-// DELETE:  verwijderen rijen
+// DELETE :  deletes a row of patients
 else if(isset($_POST['delete']))
 {
     $controller->deletePatientAction($_POST['delete']);
 }
-// CREATE: formulier afhandeling nieuwe user
+// CREATE : it adds a new user
 else if (isset($_POST['adduser'])){
     $controller->createUserAction($_POST['adduser']);
 }
-// READ:  formulier inloggen user
+// READ :  it will log u in
 else if (isset($_POST['login'])){
     $controller->loginAction();
 }
+// ACTION : it will let u log out
 else if (isset($_POST['logout'])){
     $controller->logoutAction();
 }
-// READ:  overzicht login pagina
+// READ :  it will show the login screen
 else
 {
     $controller->readLoginAction();

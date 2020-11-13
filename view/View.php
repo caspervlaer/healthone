@@ -80,7 +80,6 @@ class View
         else{
             echo "Geen patienten gevonden";
         }
-
     }
     public function showFormPatienten($id=null){
         if($id !=null && $id !=0){
