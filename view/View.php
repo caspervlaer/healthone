@@ -18,7 +18,7 @@ class View
             echo "<h4>Actie geslaagd</h4>";
         }
         $patienten = $this->model->getPatienten();
-        $users = $this->model->getUser();
+        //$users = $this->model->getUser();
         $name = $_SESSION['user'];
         $apotheek = $_SESSION['apotheek'];
 
