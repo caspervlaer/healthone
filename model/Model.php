@@ -69,9 +69,13 @@ class Model
         $this->makeConnection();
         $selection = $this->database->query('SELECT * FROM `users`');
         if($selection){
-            $result=$selection->fetchAll(\PDO::FETCH_CLASS,\model\User::class);
-            return $result;
+            $selection->setFetchMode(\PDO::FETCH_CLASS, \model\User::class);
+            $user = $selection->fetch();
+            if ($user){
+                return $user;
+            }
         }
+        return null;
     }
     public function selectPatient($id){
 

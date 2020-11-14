@@ -14,13 +14,8 @@ class View
         $this->model = $model;
     }
     public function showPatienten($result = null){
-        if($result == 1){
-            echo "<h4>Actie geslaagd</h4>";
-        }
         $patienten = $this->model->getPatienten();
-        //$users = $this->model->getUser();
-        $name = $_SESSION['user'];
-        $apotheek = $_SESSION['apotheek'];
+        $users = $this->model->getUser();
 
         /*de html template */
         echo "<!DOCTYPE html>
@@ -52,8 +47,8 @@ class View
                                <input type='submit' value='toevoegen'/>
                                </form></div>
                                 <div><h2>profile</h2>
-                                <a>name : $name</a><br />
-                                <a>apotheek : $apotheek</a></div><br />
+                                <a>name : </a>$users->name<br />
+                                <a>apotheek : </a>$users->apotheek </div><br />
                                <form action='index.php' method='post'>
                                 <input type='hidden' name='logout' value='0'>
                                 <input type='submit' value='logout'/>
