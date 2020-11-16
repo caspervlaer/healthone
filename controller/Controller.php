@@ -33,8 +33,13 @@ class Controller
         $geboortedatum = filter_input(INPUT_POST,'geboortedatum');
         $soortverzekering = filter_input(INPUT_POST,'soortverzekering');
         $zknummer = filter_input(INPUT_POST,'zknummer');
-        $result = $this->model->insertPatient($naam,$adres,$woonplaats,$geboortedatum,$zknummer,$soortverzekering);
-        $this->view->showPatienten($result);
+        if ($naam == ""){
+            echo "geen naam";
+            $this->view->showFormPatienten();
+        } else {
+            $result = $this->model->insertPatient($naam,$adres,$woonplaats,$geboortedatum,$zknummer,$soortverzekering);
+            $this->view->showPatienten($result);
+        }
     }
     public function updatePatientAction(){
         $id = filter_input(INPUT_POST,'id');

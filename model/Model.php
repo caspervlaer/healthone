@@ -131,7 +131,6 @@ class Model
                 if ($user->__get("wachtwoord") == $gehashtpassword){
                     $_SESSION['user']=$user->__get("name");
                     $_SESSION['roles']=$user->__get("role");
-                    $_SESSION['apotheek']=$user->__get("apotheek");
                     $_SESSION['loggedin']="true";
                 } else{
                     $_SESSION['loggedin']="false";
