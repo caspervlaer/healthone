@@ -53,6 +53,12 @@ class View
                                 <input type='hidden' name='logout' value='0'>
                                 <input type='submit' value='logout'/>
                                </form><br />
+                               <div><h2>Drugs</h2>
+                               <form action='index.php' method='post'>
+                               <input type='hidden' name='showDrugs'>
+                               <input type='submit' value='Drugs'>
+                               </form>
+                               </div><br />
                                 </body></html>";
         if($patienten !== null) { echo "
                         <div id=\"patienten\">";
@@ -191,5 +197,128 @@ class View
                 </form>            
                 </body>
                 </html>";
+    }
+    public function showDrugs(){
+        $drugs = $this->model->getDrugs();
+        echo "<!DOCTYPE html>
+                <html lang=\"en\">
+                <head>
+                    <meta charset=\"UTF-8\">
+                    <title>Overzicht patienten</title>
+                    <style>
+                        #drugs{
+                            display:grid;
+                            grid-template-columns:repeat(4,1fr);                
+                            grid-column-gap:10px;
+                            grid-row-gap:10px;
+                            justify-content: center;
+                        }
+                        .drug{
+                            width:80%;
+                            background-color:#ccccff;
+                            color:darkslategray;
+                            font-size:24px;
+                            padding:10px;
+                            border-radius:10px;
+                        }
+                    </style>
+                </head>
+                <body>";
+        echo "<div><h2>Terug</h2>
+                <form action='index.php' method='post'>
+                               <input type='hidden' name='showPatienten' value='0'>
+                               <input type='submit' value='terug'/>
+                               </form>
+                </div>
+                <div><h2>Drugs</h2>
+                <form action='index.php' method='post'>
+                               <input type='hidden' name='showDrugForm' value='0'>
+                               <input type='submit' value='toevoegen'/>
+                               </form>
+              </div><br />";
+        if($drugs !== null) { echo "
+                        <div id=\"drugs\">";
+            foreach ($drugs as $drug) {
+                echo "<div class=\"drug\">
+                                       
+                                      $drug->naam<br />
+                                      $drug->maker<br />
+                                      $drug->compensated<br />
+                                      $drug->side_efect<br />
+                                      $drug->benefits<br />
+
+                                      <form action='index.php' method='post'>
+                                       <input type='hidden' name='showDrugForm' value='$drug->id'><input type='submit' value='wijzigen'/></form>
+                                        <form action='index.php' method='post'>
+                                       <input type='hidden' name='deleteDrug' value='$drug->id'><input type='submit' value='verwijderen'/></form>
+                                    </div>";
+            }
+        }
+    }
+    public function showDrugForm($id=null){
+        if($id !=null && $id !=0){
+            $drug = $this->model->selectDrug($id);
+        }
+        /*de html template */
+        echo "<!DOCTYPE html>
+        <html lang=\"en\">
+        <head>
+            <meta charset=\"UTF-8\">
+            <title>Beheer druggegevens</title>
+        </head><body>
+        <h2>Formulier DrugGegevens</h2>";
+        if(isset($drug)){
+            echo "<form method='post' >
+        <table>
+            <tr><td></td><td>
+                <input type=\"hidden\" name=\"id\" value='$id'/></td></tr>
+             <tr><td>   <label for=\"naam\">Patient naam</label></td><td>
+                <input type=\"text\" name=\"naam\" value= '".$drug->naam."'/></td></tr>
+            <tr><td>
+                <label for=\"maker\">maker</label></td><td>
+                <input type=\"text\" name=\"maker\" value = '".$drug->maker."'/></td></tr>
+            <tr><td>
+                <label for=\"compensated\">compensated</label></td><td>
+                <input type=\"text\" name=\"compensated\" value= '".$drug->compensated."'/></td></tr>
+            <tr><td>
+                <label for=\"side_efect\">side_efect</label></td><td>
+                <input type=\"text\" name=\"side_efect\" value= '".$drug->side_efect."'/></td></tr>
+            <tr><td>
+                <label for=\"benefits\">benefits</label></td><td>
+                <input type=\"text\" name=\"benefits\" value= '".$drug->benefits."'/></td></tr>
+            <tr><td>
+                <input type='submit' name='updateDrug' value='opslaan'></td><td>
+            </td></tr></table>
+            </form>
+        </body>
+        </html>";
+        }
+        else{
+            /*de html template */
+            echo "<form method='post' action='index.php'>
+        <table>
+            <tr><td></td><td>
+                <input type=\"hidden\" name=\"id\" value=''/></td></tr>
+             <tr><td>   <label for=\"naam\">Patient naam</label></td><td>
+                <input type=\"text\" name=\"naam\" value= ''/></td></tr>
+            <tr><td>
+                <label for=\"maker\">maker</label></td><td>
+                <input type=\"text\" name=\"maker\" value = ''/></td></tr>
+            <tr><td>
+                <label for=\"compensated\">compensated</label></td><td>
+                <input type=\"text\" name=\"compensated\" value= ''/></td></tr>
+            <tr><td>
+                <label for=\"side_efect\">side_efect</label></td><td>
+                <input type=\"text\" name=\"side_efect\" value= ''/></td></tr>
+            <tr><td>
+                <label for=\"benefits\">benefits</label></td><td>
+                <input type=\"text\" name=\"benefits\" value= ''/></td></tr>
+            <tr><td>
+                <input type='submit' name='addDrug' value='opslaan'></td><td>
+            </td></tr></table>
+            </form>
+        </body>
+        </html>";
+        }
     }
 }

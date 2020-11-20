@@ -65,6 +65,15 @@ class Model
         }
         return null;
     }
+    public function getDrugs(){
+        $this->makeConnection();
+        $selection = $this->database->query('SELECT * FROM `medicijnen`');
+        if($selection){
+            $result=$selection->fetchAll(\PDO::FETCH_CLASS,\model\Drug::class);
+            return $result;
+        }
+        return null;
+    }
     public function getUser(){
         $this->makeConnection();
         $selection = $this->database->query('SELECT * FROM `users`');
@@ -142,5 +151,63 @@ class Model
     public function logout(){
         $_SESSION['loggedin']="false";
         session_unset();
+    }
+    public function deleteDrug($id){
+        $this->makeConnection();
+        $selection = $this->database->prepare(
+            'DELETE FROM `medicijnen` 
+            WHERE `medicijnen`.`id` =:id');
+        $selection->bindParam(":id",$id);
+        $result = $selection ->execute();
+        return $result;
+    }
+    public function addDrug($naam,$maker,$compensated,$side_efect,$benefits){
+        $this->makeConnection();
+        if($naam !='')
+        {
+            $query = $this->database->prepare (
+                "INSERT INTO `medicijnen` (`id`, `naam`, `maker`, `compensated`, `side_efect`, `benefits`) 
+                VALUES (NULL, :naam, :maker, :compensated, :side_efect, :benefits)");
+            $query->bindParam(":naam", $naam);
+            $query->bindParam(":maker", $maker);
+            $query->bindParam(":compensated",$compensated);
+            $query->bindParam(":side_efect",$side_efect);
+            $query->bindParam(":benefits",$benefits);
+            $result = $query->execute();
+            return $result;
+        }
+        return -1;
+    }
+    public function updateDrug($id,$naam,$maker,$compensated,$side_efect,$benefits){
+        $this->makeConnection();
+
+        // id moet worden toegevoegd omdat de id in de databse wordt gezocht
+        $query = $this->database->prepare (
+            "UPDATE `medicijnen` SET `naam` = :naam, `maker`=:maker, `compensated` = :compensated,
+            `side_efect`=:side_efect, `benefits`=:benefits 
+            WHERE `medicijnen`.`id` = :id ");
+        $query->bindParam(":id", $id);
+        $query->bindParam(":naam", $naam);
+        $query->bindParam(":maker", $maker);
+        $query->bindParam(":compensated",$compensated);
+        $query->bindParam(":side_efect",$side_efect);
+        $query->bindParam(":benefits",$benefits);
+        $result = $query->execute();
+        return $result;
+    }
+    public function selectDrug($id){
+
+        $this->makeConnection();
+        $selection = $this->database->prepare(
+            'SELECT * FROM `medicijnen` 
+            WHERE `medicijnen`.`id` =:id');
+        $selection->bindParam(":id",$id);
+        $result = $selection ->execute();
+        if($result){
+            $selection->setFetchMode(\PDO::FETCH_CLASS, \model\Drug::class);
+            $patient = $selection->fetch();
+            return $patient;
+        }
+        return null;
     }
 }

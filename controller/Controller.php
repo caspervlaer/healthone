@@ -23,6 +23,9 @@ class Controller
     public function readLoginAction(){
         $this->view->showLogin();
     }
+    public function showDrugFormAction($id=null){
+        $this->view->showDrugForm($id);
+    }
     public function showFormPatientAction($id=null){
         $this->view->showFormPatienten($id);
     }
@@ -76,6 +79,37 @@ class Controller
     public function logoutAction(){
         $this->model->logout();
         $this->view->showLogin();
+    }
+    public function showDrugsAction(){
+        $this->view->showDrugs();
+    }
+    public function deleteDrugAction($id){
+        $result = $this->model->deleteDrug($id);
+        $this->view->showDrugs($result);
+    }
+    public function addDrugAction(){
+        $naam = filter_input(INPUT_POST,'naam');
+        $maker = filter_input(INPUT_POST,'maker');
+        $compensated = filter_input(INPUT_POST,'compensated');
+        $side_efect = filter_input(INPUT_POST,'side_efect');
+        $benefits = filter_input(INPUT_POST,'benefits');
+        if ($naam == ""){
+            echo "geen naam";
+            $this->view->showDrugForm();
+        } else {
+            $result = $this->model->addDrug($naam,$maker,$compensated,$side_efect,$benefits);
+            $this->view->showDrugs($result);
+        }
+    }
+    public function updateDrugAction(){
+        $id = filter_input(INPUT_POST,'id');
+        $naam = filter_input(INPUT_POST,'naam');
+        $maker = filter_input(INPUT_POST,'maker');
+        $compensated = filter_input(INPUT_POST,'compensated');
+        $side_efect = filter_input(INPUT_POST,'side_efect');
+        $benefits = filter_input(INPUT_POST,'benefits');
+        $result=$this->model->updateDrug($id,$naam,$maker,$compensated,$side_efect,$benefits);
+        $this->view->showDrugs($result);
     }
 
 

@@ -13,10 +13,30 @@ if(isset($_POST['showForm']))
 {
     $controller->showFormPatientAction( $_POST['showForm']);
 }
+else if (isset($_POST['showDrugForm']))
+{
+    $controller->showDrugFormAction($_POST['showDrugForm']);
+}
+else if (isset($_POST['showPatienten'])){
+    $controller->readPatientenAction();
+}
+
 //  UPDATE : changes info of a row of patients
 else if(isset($_POST['update']))
 {
     $controller->updatePatientAction();
+}
+else if (isset($_POST['showDrugs']))
+{
+    $controller->showDrugsAction();
+}
+else if (isset($_POST['deleteDrug']))
+{
+    $controller->deleteDrugAction($_POST['deleteDrug']);
+}
+else if (isset($_POST['addDrug']))
+{
+    $controller->addDrugAction();
 }
 // CREATE :  adds a new row of patients
 else if(isset($_POST['create']))
@@ -30,7 +50,7 @@ else if(isset($_POST['delete']))
 }
 // CREATE : it adds a new user
 else if (isset($_POST['adduser'])){
-    $controller->createUserAction($_POST['adduser']);
+    $controller->createUserAction();
 }
 // READ :  it will log u in
 else if (isset($_POST['login'])){
@@ -39,6 +59,9 @@ else if (isset($_POST['login'])){
 // ACTION : it will let u log out
 else if (isset($_POST['logout'])){
     $controller->logoutAction();
+}
+else if (isset($_POST['updateDrug'])){
+    $controller->updateDrugAction();
 }
 // READ :  it will show the login screen
 else
