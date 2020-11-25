@@ -23,59 +23,61 @@ class View
                 <head>
                     <meta charset=\"UTF-8\">
                     <title>Overzicht patienten</title>
+                    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+                    <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
+                    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
+                    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
                     <style>
-                        #patienten{
-                            display:grid;
-                            grid-template-columns:repeat(4,1fr);                
-                            grid-column-gap:10px;
-                            grid-row-gap:10px;
-                            justify-content: center;
-                        }
-                        .patient{
-                            width:80%;
-                            background-color:#ccccff;
-                            color:darkslategray;
-                            font-size:24px;
-                            padding:10px;
-                            border-radius:10px;
-                        }
                     </style>
                 </head>
                 <body>";
-        echo "<h2>Patienten overzicht</h2> <form action='index.php' method='post'>
-                               <input type='hidden' name='showForm' value='0'>
-                               <input type='submit' value='toevoegen'/>
-                               </form></div>
+        echo "
+                            <div class='d-flex justify-content-center'>
                                 <div><h2>profile</h2>
                                 <a>name : </a>$users->name<br />
-                                <a>apotheek : </a>$users->apotheek </div><br />
+                                <a>apotheek : </a>$users->apotheek<br />
                                <form action='index.php' method='post'>
                                 <input type='hidden' name='logout' value='0'>
-                                <input type='submit' value='logout'/>
-                               </form><br />
+                                <input class='btn btn-outline-secondary' type='submit' value='logout'/>
+                               </form></div><br />
+                            </div>
+                            <div class='d-flex justify-content-center'>
                                <div><h2>Drugs</h2>
                                <form action='index.php' method='post'>
                                <input type='hidden' name='showDrugs'>
-                               <input type='submit' value='Drugs'>
+                               <input class='btn btn-outline-secondary' type='submit' value='Drugs'>
                                </form>
                                </div><br />
+                            </div>
+                            <div class='d-flex justify-content-center'>
+                               <h2>Patienten overzicht</h2> <form action='index.php' method='post'>
+                            </div>
+                            <div class='d-flex justify-content-center'>
+                               <input type='hidden' name='showForm' value='0'>
+                               <input class='btn btn-outline-secondary' type='submit' value='toevoegen'/>
+                               </form></div><br />
+                            </div>
                                 </body></html>";
         if($patienten !== null) { echo "
-                        <div id=\"patienten\">";
+                        <div class='row d-flex justify-content-center'>";
             foreach ($patienten as $patient) {
-                echo "<div class=\"patient\">
-                                       
-                                      $patient->naam<br />
-                                      $patient->adres<br />
-                                      $patient->woonplaats<br />
-                                      $patient->zknummer<br />
-                                      $patient->geboortedatum<br />
-                                      $patient->soortverzekering<br />
+                echo "<div class='col-sm-12 col-md-6 col-lg-4 jumbotron'>
+                        <div class='d-flex justify-content-center'>
+                            <table class='table-striped '>
+                            <tr><th>naam :</th><th> $patient->naam</th></tr>
+                            <tr><th>adres :</th><th> $patient->adres</th></tr>
+                            <tr><th>woonplaats :</th><th> $patient->woonplaats</th></tr>
+                            <tr><th>zknummer :</th><th> $patient->zknummer</th></tr>
+                            <tr><th>geboortedatum :</th><th> $patient->geboortedatum</th></tr>
+                            <tr><th>soortverzekering :</th><th> $patient->soortverzekering</th></tr> 
+                            </table>
+                        </div>
+                        <div class='d-flex justify-content-center'>
                                       <form action='index.php' method='post'>
-                                       <input type='hidden' name='showForm' value='$patient->id'><input type='submit' value='wijzigen'/></form>
+                                       <input type='hidden' name='showForm' value='$patient->id'><input class='btn btn-outline-secondary' type='submit' value='wijzigen'/></form>
                                         <form action='index.php' method='post'>
-                                       <input type='hidden' name='delete' value='$patient->id'><input type='submit' value='verwijderen'/></form>
-                                    </div>";
+                                       <input type='hidden' name='delete' value='$patient->id'><input class='btn btn-outline-secondary' type='submit' value='verwijderen'/></form>
+                                    </div></div>";
             }
         }
         else{
@@ -92,6 +94,10 @@ class View
         <head>
             <meta charset=\"UTF-8\">
             <title>Beheer patientengegevens</title>
+            <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+                    <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
+                    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
+                    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
         </head><body>
         <h2>Formulier patientgegevens</h2>";
         if(isset($patient)){
@@ -117,7 +123,7 @@ class View
                 <label for=\"soortverzekering\">soortverzekering</label></td><td>
                 <input type=\"text\" name=\"soortverzekering\" value= '".$patient->soortverzekering."'/></td></tr>
             <tr><td>
-                <input type='submit' name='update' value='opslaan'></td><td>
+                <input class='btn btn-outline-secondary' type='submit' name='update' value='opslaan'></td><td>
             </td></tr></table>
             </form>
         </body>
@@ -147,7 +153,7 @@ class View
                 <label for=\"soortverzekering\">soortverzekering</label></td><td>
                 <input type=\"text\" name=\"soortverzekering\" value= ''/></td></tr>
             <tr><td>
-                <input type='submit' name='create' value='opslaan'></td><td>
+                <input class='btn btn-outline-secondary' type='submit' name='create' value='opslaan'></td><td>
             </td></tr></table>
             </form>
         </body>
@@ -160,41 +166,34 @@ class View
                 <head>
                     <meta charset=\"UTF-8\">
                     <title>Overzicht patienten</title>
+                    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+                    <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
+                    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
+                    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
                     <style>
-                        #patienten{
-                            display:grid;
-                            grid-template-columns:repeat(4,1fr);                
-                            grid-column-gap:10px;
-                            grid-row-gap:10px;
-                            justify-content: center;
-                        }
-                        .patient{
-                            width:80%;
-                            background-color:#ccccff;
-                            color:darkslategray;
-                            font-size:24px;
-                            padding:10px;
-                            border-radius:10px;
-                        }
                     </style>
                 </head>
-                <body>
-                <h2>Login</h2>
+                <body>      
+                <div class='col-sm-4 container-fluid pt-5 bg-light '>
+                <h2 class='d-flex justify-content-center'>Login</h2>
                 <form method='post' action='index.php'>
-                <table class='login'>
-                    <tr><td></td><td>
-                        <input type=\"hidden\" name=\"id\" value=''/></td></tr>
-                    <tr><td>   
-                        <label for=\"naam\">user naam</label></td><td>
-                        <input type=\"text\" name=\"naam\" value= ''/></td></tr>                               
-                    <tr><td>
-                        <label for=\"wachtwoord\">wachtwoord</label></td><td>
-                        <input type=\"text\" name=\"wachtwoord\" value = ''/></td></tr>
-                    <tr><td>
-                        <input type='submit' name='login' value='login'></td><td>
-                    </td></tr>
+                <table class='login .table-dark' >
+                    <div>
+                        <input type=\"hidden\" name=\"id\" value=''/>
+                    </div><div class='d-flex justify-content-center'>   
+                        <label class='form-group' for=\"naam\">user naam</label>
+                        </div><div class='d-flex justify-content-center'>
+                        <input class='form-group d-flex justify-content-center' type=\"text\" name=\"naam\" value= ''/>                              
+                    </div><div class='d-flex justify-content-center'>
+                        <label class='form-group' for=\"wachtwoord\">wachtwoord</label>
+                        </div><div class='d-flex justify-content-center'>
+                        <input class='form-group d-flex justify-content-center' type=\"text\" name=\"wachtwoord\" value = ''/>
+                    </div><div class='d-flex justify-content-center'>
+                        <input class='form-group d-flex justify-content-center btn btn-outline-secondary' type='submit' name='login' value='login'>
+                    </div>
                 </table>
-                </form>            
+                </form>
+                </div>                     
                 </body>
                 </html>";
     }
@@ -205,53 +204,47 @@ class View
                 <head>
                     <meta charset=\"UTF-8\">
                     <title>Overzicht patienten</title>
+                    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+                    <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
+                    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
+                    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
                     <style>
-                        #drugs{
-                            display:grid;
-                            grid-template-columns:repeat(4,1fr);                
-                            grid-column-gap:10px;
-                            grid-row-gap:10px;
-                            justify-content: center;
-                        }
-                        .drug{
-                            width:80%;
-                            background-color:#ccccff;
-                            color:darkslategray;
-                            font-size:24px;
-                            padding:10px;
-                            border-radius:10px;
-                        }
                     </style>
                 </head>
                 <body>";
-        echo "<div><h2>Terug</h2>
+        echo "<div class='d-flex justify-content-center'><h2>Terug</h2></div>
+            <div class='d-flex justify-content-center'>
                 <form action='index.php' method='post'>
                                <input type='hidden' name='showPatienten' value='0'>
-                               <input type='submit' value='terug'/>
+                               <input class='btn btn-outline-secondary' type='submit' value='terug'/>
                                </form>
-                </div>
-                <div><h2>Drugs</h2>
+            </div>
+                <div class='d-flex justify-content-center'><h2>Drugs</h2></div>
+            <div class='d-flex justify-content-center'>
                 <form action='index.php' method='post'>
                                <input type='hidden' name='showDrugForm' value='0'>
-                               <input type='submit' value='toevoegen'/>
+                               <input class='btn btn-outline-secondary' type='submit' value='toevoegen'/>
                                </form>
-              </div><br />";
+            </div>
+              <br />";
         if($drugs !== null) { echo "
-                        <div id=\"drugs\">";
+                        <div class='row d-flex justify-content-center'>";
             foreach ($drugs as $drug) {
-                echo "<div class=\"drug\">
-                                       
-                                      $drug->naam<br />
-                                      $drug->maker<br />
-                                      $drug->compensated<br />
-                                      $drug->side_efect<br />
-                                      $drug->benefits<br />
-
+                echo "<div class='col-sm-12 col-md-6 col-lg-4 jumbotron'>
+                            <div class='d-flex justify-content-center'>
+                            <table class='table-striped '>
+                            <tr><th>naam :</th><th> $drug->naam</th></tr>
+                            <tr><th>maker :</th><th> $drug->maker</th></tr>
+                            <tr><th>compensated :</th><th> $drug->compensated</th></tr>
+                            <tr><th>side_efect :</th><th> $drug->side_efect</th></tr>
+                            <tr><th>benefits :</th><th> $drug->benefits</th></tr> 
+                            </table>
+                        </div><div class='d-flex justify-content-center'>
                                       <form action='index.php' method='post'>
-                                       <input type='hidden' name='showDrugForm' value='$drug->id'><input type='submit' value='wijzigen'/></form>
+                                       <input type='hidden' name='showDrugForm' value='$drug->id'><input class='btn btn-outline-secondary' type='submit' value='wijzigen'/></form>
                                         <form action='index.php' method='post'>
-                                       <input type='hidden' name='deleteDrug' value='$drug->id'><input type='submit' value='verwijderen'/></form>
-                                    </div>";
+                                       <input type='hidden' name='deleteDrug' value='$drug->id'><input class='btn btn-outline-secondary' type='submit' value='verwijderen'/></form>
+                                    </div></div>";
             }
         }
     }
@@ -265,6 +258,10 @@ class View
         <head>
             <meta charset=\"UTF-8\">
             <title>Beheer druggegevens</title>
+            <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+                    <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
+                    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
+                    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
         </head><body>
         <h2>Formulier DrugGegevens</h2>";
         if(isset($drug)){
@@ -272,7 +269,7 @@ class View
         <table>
             <tr><td></td><td>
                 <input type=\"hidden\" name=\"id\" value='$id'/></td></tr>
-             <tr><td>   <label for=\"naam\">Patient naam</label></td><td>
+             <tr><td>   <label for=\"naam\">Drug naam</label></td><td>
                 <input type=\"text\" name=\"naam\" value= '".$drug->naam."'/></td></tr>
             <tr><td>
                 <label for=\"maker\">maker</label></td><td>
@@ -287,7 +284,7 @@ class View
                 <label for=\"benefits\">benefits</label></td><td>
                 <input type=\"text\" name=\"benefits\" value= '".$drug->benefits."'/></td></tr>
             <tr><td>
-                <input type='submit' name='updateDrug' value='opslaan'></td><td>
+                <input class='btn btn-outline-secondary' type='submit' name='updateDrug' value='opslaan'></td><td>
             </td></tr></table>
             </form>
         </body>
@@ -299,7 +296,7 @@ class View
         <table>
             <tr><td></td><td>
                 <input type=\"hidden\" name=\"id\" value=''/></td></tr>
-             <tr><td>   <label for=\"naam\">Patient naam</label></td><td>
+             <tr><td>   <label for=\"naam\">Drug naam</label></td><td>
                 <input type=\"text\" name=\"naam\" value= ''/></td></tr>
             <tr><td>
                 <label for=\"maker\">maker</label></td><td>
@@ -314,7 +311,7 @@ class View
                 <label for=\"benefits\">benefits</label></td><td>
                 <input type=\"text\" name=\"benefits\" value= ''/></td></tr>
             <tr><td>
-                <input type='submit' name='addDrug' value='opslaan'></td><td>
+                <input class='btn btn-outline-secondary' type='submit' name='addDrug' value='opslaan'></td><td>
             </td></tr></table>
             </form>
         </body>

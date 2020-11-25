@@ -23,7 +23,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Index.php" beforeDir="false" afterPath="$PROJECT_DIR$/Index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/Controller.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Drug.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/Drug.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/Model.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/Model.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/View.php" afterDir="false" />
     </list>
@@ -75,7 +74,10 @@
       <workItem from="1605368214384" duration="4466000" />
       <workItem from="1605479506979" duration="989000" />
       <workItem from="1605526383074" duration="5372000" />
-      <workItem from="1605789553676" duration="10626000" />
+      <workItem from="1605789553676" duration="10809000" />
+      <workItem from="1606065560678" duration="704000" />
+      <workItem from="1606130341495" duration="1574000" />
+      <workItem from="1606310353922" duration="6050000" />
     </task>
     <servers />
   </component>

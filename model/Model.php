@@ -138,8 +138,8 @@ class Model
             if ($user){
                 $gehashtpassword = hash("sha256", $wachtwoord);
                 if ($user->__get("wachtwoord") == $gehashtpassword){
-                    $_SESSION['user']=$user->__get("name");
-                    $_SESSION['roles']=$user->__get("role");
+                    $_SESSION['user']=$user->name;
+                    $_SESSION['roles']=$user->role;
                     $_SESSION['loggedin']="true";
                 } else{
                     $_SESSION['loggedin']="false";

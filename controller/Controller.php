@@ -111,7 +111,4 @@ class Controller
         $result=$this->model->updateDrug($id,$naam,$maker,$compensated,$side_efect,$benefits);
         $this->view->showDrugs($result);
     }
-
-
-
 }

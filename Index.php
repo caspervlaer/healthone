@@ -7,6 +7,7 @@ use controller\Controller;
 include_once ("controller/Controller.php");
 
 $controller = new Controller();
+session_start();
 
 // READ : it will show u the patienten screen
 if(isset($_POST['showForm']))
