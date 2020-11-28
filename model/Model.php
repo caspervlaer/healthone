@@ -6,6 +6,8 @@ use model\Patient;
 include_once ("model/Patient.php");
 use model\User;
 include_once ("model/User.php");
+use model\Recept;
+include_once ("model/Recept.php");
 
 class Model
 {
@@ -86,6 +88,15 @@ class Model
         }
         return null;
     }
+    public function getReceipts(){
+        $this->makeConnection();
+        $selection = $this->database->query('SELECT * FROM `receipt`');
+        if($selection){
+            $result=$selection->fetchAll(\PDO::FETCH_CLASS,\model\Recept::class);
+            return $result;
+        }
+        return null;
+    }
     public function selectPatient($id){
 
         $this->makeConnection();
@@ -137,7 +148,7 @@ class Model
             $user = $selection->fetch();
             if ($user){
                 $gehashtpassword = hash("sha256", $wachtwoord);
-                if ($user->__get("wachtwoord") == $gehashtpassword){
+                if ($user->wachtwoord == $gehashtpassword){
                     $_SESSION['user']=$user->name;
                     $_SESSION['roles']=$user->role;
                     $_SESSION['loggedin']="true";
@@ -209,5 +220,21 @@ class Model
             return $patient;
         }
         return null;
+    }
+    public function createReceipt($patientid,$drugid,$notitie,$herhaling,$duration){
+        $this->makeConnection();
+        $query = $this->database->prepare (
+            "INSERT INTO `receipt` (`id`, `patientid`, `drugid`, `notitie`, `herhaling`, `date`, `duration`) 
+                VALUES (NULL, :patientid, :drugid, :notitie, :herhaling, :date, :duration)");
+        $query->bindParam(":notitie", $notitie);
+        $query->bindParam(":herhaling", $herhaling);
+        $date = date("l jS \of F Y h:i:s A");
+        $query->bindParam(":date",$date);
+        $query->bindParam(":duration",$duration);
+        $query->bindParam(":patientid",$patientid);
+        $query->bindParam(":drugid",$drugid);
+        $result = $query->execute();
+        echo "hallo";
+        return $result;
     }
 }

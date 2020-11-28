@@ -21,6 +21,12 @@ else if (isset($_POST['showDrugForm']))
 else if (isset($_POST['showPatienten'])){
     $controller->readPatientenAction();
 }
+else if (isset($_POST['showCreateReceipt'])){
+    $controller->showReceiptFormAction($_POST['showCreateReceipt']);
+}
+else if (isset($_POST['addReceipt'])){
+    $controller->addReceiptAction();
+}
 
 //  UPDATE : changes info of a row of patients
 else if(isset($_POST['update']))

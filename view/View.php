@@ -16,6 +16,7 @@ class View
     public function showPatienten($result = null){
         $patienten = $this->model->getPatienten();
         $users = $this->model->getUser();
+        $receipts = $this->model->getReceipts();
 
         /*de html template */
         echo "<!DOCTYPE html>
@@ -77,7 +78,9 @@ class View
                                        <input type='hidden' name='showForm' value='$patient->id'><input class='btn btn-outline-secondary' type='submit' value='wijzigen'/></form>
                                         <form action='index.php' method='post'>
                                        <input type='hidden' name='delete' value='$patient->id'><input class='btn btn-outline-secondary' type='submit' value='verwijderen'/></form>
-                                    </div></div>";
+                                        <form action='index.php' method='post'>
+                                        <input type='hidden' name='showCreateReceipt' value='$patient->id'><input class='btn btn-outline-secondary' type='submit' value='add receipt'></form>
+                             </div></div>";
             }
         }
         else{
@@ -317,5 +320,73 @@ class View
         </body>
         </html>";
         }
+    }
+    public function showReceiptForm($id){
+        $drugs = $this->model->getDrugs();
+        echo "<!DOCTYPE html>
+        <html lang=\"en\">
+        <head>
+            <meta charset=\"UTF-8\">
+            <title>Beheer druggegevens</title>
+            <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+                    <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
+                    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
+                    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
+        </head><body>
+        <h2>Formulier ReceiptGegevens</h2>";
+        echo "<form method='post' action='index.php'>
+        <table>
+         <div>
+             <input type=\"hidden\" name=\"patientid\" value='$id'/>
+         </div><div>
+            <input type='hidden' name='id' value=''>
+         </div><div>
+            <label>notitie</label>
+         </div><div>
+            <input type=\"text\" name='notitie' value= ''/>
+         </div><div>
+            <label>herhaling</label>
+         </div><div>
+            <input type='text' name='herhaling' value= ''/>
+         </div><div>
+            <label>duration</label>
+         </div><div>
+            <input type=\"text\" name='duration' value= ''/>
+         </div><div>
+            <input type='hidden' name='date' value=''>
+         </div><div>
+            <label>drug id</label>
+         </div><div>
+            <input type=\"text\" name='drugid' value= ''/>
+         </div><div>
+            <input type='submit' name='addReceipt' value='add Receipt'>      
+         </div>
+            </table>
+            </form>
+         <div>
+            <form action='index.php' method='post'>
+                <input type='hidden' name='showPatienten' value='0'>
+                <input class='btn btn-outline-secondary' type='submit' value='terug'/>
+            </form>
+         </div>
+         <h2>all drugs</h2>
+        </body>
+        </html>";
+        if($drugs !== null) { echo "
+                        <div class='row d-flex justify-content-center'>";
+            foreach ($drugs as $drug) {
+                echo "<div class='col-sm-12 col-md-6 col-lg-4 jumbotron'>
+                            <div class='d-flex justify-content-center'>
+                            <table class='table-striped '>
+                            <tr><th>id :</th><th> $drug->id</th></tr>
+                            <tr><th>naam :</th><th> $drug->naam</th></tr>
+                            <tr><th>maker :</th><th> $drug->maker</th></tr>
+                            <tr><th>compensated :</th><th> $drug->compensated</th></tr>
+                            <tr><th>side_efect :</th><th> $drug->side_efect</th></tr>
+                            <tr><th>benefits :</th><th> $drug->benefits</th></tr> 
+                            </table>
+                        </div></div>";
+            }
+        };
     }
 }

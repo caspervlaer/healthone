@@ -26,8 +26,20 @@ class Controller
     public function showDrugFormAction($id=null){
         $this->view->showDrugForm($id);
     }
+    public function showReceiptFormAction($id){
+        $this->view->showReceiptForm($id);
+    }
     public function showFormPatientAction($id=null){
         $this->view->showFormPatienten($id);
+    }
+    public function addReceiptAction(){
+        $patientid = filter_input(INPUT_POST,'patientid');
+        $drugid = filter_input(INPUT_POST,'drugid');
+        $notitie = filter_input(INPUT_POST,'notitie');
+        $herhaling = filter_input(INPUT_POST,'herhaling');
+        $duration = filter_input(INPUT_POST,'duration');
+        $result = $this->model->createReceipt($patientid,$drugid,$notitie,$herhaling,$duration);
+        $this->view->showPatienten($result);
     }
     public function createPatientAction(){
         $naam = filter_input(INPUT_POST,'naam');
