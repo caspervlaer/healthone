@@ -88,6 +88,7 @@ class Controller
         if ($_SESSION['loggedin']=="true"){
             $this->view->showPatienten();
         } else{
+            $_SESSION['loggedin']="false";
             $this->view->showLogin();
         }
     }
