@@ -13,6 +13,7 @@ class View
     public function __construct($model){
         $this->model = $model;
     }
+    // this will show u the patienten page
     public function showPatienten($result = null){
         $patienten = $this->model->getPatienten();
         $users = $this->model->getUser();
@@ -91,6 +92,7 @@ class View
             echo "Geen patienten gevonden";
         }
     }
+    //this will show u the patieten form
     public function showFormPatienten($id=null){
         if($id !=null && $id !=0){
             $patient = $this->model->selectPatient($id);
@@ -182,6 +184,7 @@ class View
         </html>";
         }
     }
+    //this will show u the login
     public function showLogin(){
         echo "<!DOCTYPE html>
                 <html lang=\"en\">
@@ -217,6 +220,7 @@ class View
                 </body>
                 </html>";
     }
+    //this will show u the drug page
     public function showDrugs(){
         $drugs = $this->model->getDrugs();
         echo "<!DOCTYPE html>
@@ -268,6 +272,7 @@ class View
             }
         }
     }
+    //this will show u the drug form
     public function showDrugForm($id=null){
         if($id !=null && $id !=0){
             $drug = $this->model->selectDrug($id);
@@ -354,6 +359,7 @@ class View
         </html>";
         }
     }
+    //this will show u the receipt form
     public function showReceiptForm($id){
         $drugs = $this->model->getDrugs();
         echo "<!DOCTYPE html>
@@ -426,6 +432,7 @@ class View
             }
         }
     }
+    //this will show u the receipt page
     public function showReceipt($id){
         $recept = $this->model->selectReceipt($id);
         if ($recept){

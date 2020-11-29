@@ -12,11 +12,11 @@ include_once ("model/Recept.php");
 class Model
 {
     private $database;
-
+    //this will make a connection to the web server where the date will be stored
     private function makeConnection(){
         $this->database = new \PDO('mysql:host=localhost;dbname=healthone', "root", "");
     }
-
+    //this will make a connection to the server looks if u put in a name if so then places the info in the server otherwise it does nothing
     public function insertPatient($naam,$adres,$woonplaats,$geboortedatum,$zknummer,$soortverzekering){
         $this->makeConnection();
         if($naam !='')
@@ -38,6 +38,7 @@ class Model
 
 
     }
+    //this will make a connection to the database and then puts the info in
     public function updatePatient($id,$naam,$adres,$woonplaats,$geboortedatum,$zknummer,$soortverzekering){
         $this->makeConnection();
 
@@ -56,7 +57,7 @@ class Model
         $result = $query->execute();
         return $result;
     }
-
+    //this will make a connection to the database and returns specific information
     public function getPatienten(){
 
         $this->makeConnection();
@@ -67,6 +68,7 @@ class Model
         }
         return null;
     }
+    //this will make a connection to the database and returns specific information
     public function getDrugs(){
         $this->makeConnection();
         $selection = $this->database->query('SELECT * FROM `medicijnen`');
@@ -76,6 +78,7 @@ class Model
         }
         return null;
     }
+    //this will make a connection to the database and returns specific information
     public function getUser(){
         $this->makeConnection();
         $selection = $this->database->query('SELECT * FROM `users`');
@@ -88,6 +91,7 @@ class Model
         }
         return null;
     }
+    //this will make a connection to the database and returns specific information
     public function getReceipts(){
         $this->makeConnection();
         $selection = $this->database->query('SELECT * FROM `receipt`');
@@ -97,6 +101,7 @@ class Model
         }
         return null;
     }
+    //this will make a connection to the database and returns specific information
     public function selectPatient($id){
 
         $this->makeConnection();
@@ -112,6 +117,7 @@ class Model
         }
         return null;
     }
+    //this will make a connection to the database and returns specific information
     public function selectReceipt($id){
         $this->makeConnection();
         $selection = $this->database->prepare(
@@ -126,6 +132,7 @@ class Model
         }
         return null;
     }
+    //this will make a connection to the database and deletes a patient
     public function deletePatient($id){
         $this->makeConnection();
         $selection = $this->database->prepare(
@@ -135,6 +142,7 @@ class Model
         $result = $selection ->execute();
         return $result;
     }
+    //this will make a connection to the database and looks if u put in a name if so then adds a user otherwise does nothing
     public function insertUser($naam,$wachtwoord,$apotheek){
         $this->makeConnection();
         if($naam !='')
@@ -151,6 +159,7 @@ class Model
         return -1;
         // id hoeft niet te worden toegevoegd omdat de id in de databse op autoincrement staat.
     }
+    //this will make a connection to the database and looks into users if ur username and password are correct then loggs u in otherwise doesn not log u in and say wrong password
     public function login($name, $wachtwoord){
         $this->makeConnection();
         $selection = $this->database->prepare(
@@ -173,10 +182,12 @@ class Model
             }
         }
     }
+    //this will log u out
     public function logout(){
         $_SESSION['loggedin']="false";
 
     }
+    //this will make a connection to the database and deletes a drug
     public function deleteDrug($id){
         $this->makeConnection();
         $selection = $this->database->prepare(
@@ -186,6 +197,7 @@ class Model
         $result = $selection ->execute();
         return $result;
     }
+    //this will make a connection to the database and looks if u put in a name if so then adds a drug otherwise does nothing
     public function addDrug($naam,$maker,$compensated,$side_efect,$benefits){
         $this->makeConnection();
         if($naam !='')
@@ -203,6 +215,7 @@ class Model
         }
         return -1;
     }
+    //this will make a connection to the database and updates a drug
     public function updateDrug($id,$naam,$maker,$compensated,$side_efect,$benefits){
         $this->makeConnection();
 
@@ -220,6 +233,7 @@ class Model
         $result = $query->execute();
         return $result;
     }
+    //this will make a connection to the database and returns specific information
     public function selectDrug($id){
 
         $this->makeConnection();
@@ -235,6 +249,7 @@ class Model
         }
         return null;
     }
+    //this will make a connection to the database and adds a receipt
     public function createReceipt($patientid,$drugid,$notitie,$herhaling,$duration){
         $this->makeConnection();
         $query = $this->database->prepare (
