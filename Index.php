@@ -24,6 +24,9 @@ else if (isset($_POST['showPatienten'])){
 else if (isset($_POST['showCreateReceipt'])){
     $controller->showReceiptFormAction($_POST['showCreateReceipt']);
 }
+else if (isset($_POST['showReceipt'])){
+    $controller->showReceiptAction($_POST['showReceipt']);
+}
 else if (isset($_POST['addReceipt'])){
     $controller->addReceiptAction();
 }

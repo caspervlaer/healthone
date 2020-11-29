@@ -78,9 +78,13 @@ class View
                                        <input type='hidden' name='showForm' value='$patient->id'><input class='btn btn-outline-secondary' type='submit' value='wijzigen'/></form>
                                         <form action='index.php' method='post'>
                                        <input type='hidden' name='delete' value='$patient->id'><input class='btn btn-outline-secondary' type='submit' value='verwijderen'/></form>
-                                        <form action='index.php' method='post'>
-                                        <input type='hidden' name='showCreateReceipt' value='$patient->id'><input class='btn btn-outline-secondary' type='submit' value='add receipt'></form>
-                             </div></div>";
+                        </div>
+                        <div class='d-flex justify-content-center'>
+                             <form action='index.php' method='post'>
+                             <input type='hidden' name='showCreateReceipt' value='$patient->id'><input class='btn btn-outline-secondary' type='submit' value='add receipt'></form>
+                             <form action='index.php' method='post'>
+                             <input type='hidden' name='showReceipt' value='$patient->id'><input class='btn btn-outline-secondary' type='submit' value='show receipt'></form>
+                        </div></div>";
             }
         }
         else{
@@ -101,10 +105,11 @@ class View
                     <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
                     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
                     <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
-        </head><body>
-        <h2>Formulier patientgegevens</h2>";
+        </head><body>";
         if(isset($patient)){
-            echo "<form method='post' >
+            echo "<div class='jumbotron'><div class='d-flex justify-content-center'><h2>Formulier patientgegevens</h2></div>
+        <div class='d-flex justify-content-center'>
+        <form method='post' >
         <table>
             <tr><td></td><td>
                 <input type=\"hidden\" name=\"id\" value='$id'/></td></tr>
@@ -128,13 +133,21 @@ class View
             <tr><td>
                 <input class='btn btn-outline-secondary' type='submit' name='update' value='opslaan'></td><td>
             </td></tr></table>
+            </form></div></div><div class='d-flex justify-content-center'>
+            <form action='index.php' method='post'>
+            <input type='hidden' name='showPatienten' value='0'>
+            <input class='btn btn-outline-secondary' type='submit' value='terug'/>
             </form>
+            </div>" .
+                "
         </body>
         </html>";
         }
         else{
             /*de html template */
-            echo "<form method='post' action='index.php'>
+            echo "<div class='jumbotron'><div class='d-flex justify-content-center'><h2>Formulier patientgegevens</h2></div>
+        <div class='d-flex justify-content-center'>
+        <form method='post' action='index.php'>
         <table>
             <tr><td></td><td>
                 <input type=\"hidden\" name=\"id\" value=''/></td></tr>
@@ -158,7 +171,13 @@ class View
             <tr><td>
                 <input class='btn btn-outline-secondary' type='submit' name='create' value='opslaan'></td><td>
             </td></tr></table>
+            </form></div></div>
+            <div class='d-flex justify-content-center'>
+            <form action='index.php' method='post'>
+            <input type='hidden' name='showPatienten' value='0'>
+            <input class='btn btn-outline-secondary' type='submit' value='terug'/>
             </form>
+            </div>
         </body>
         </html>";
         }
@@ -265,10 +284,10 @@ class View
                     <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
                     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
                     <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
-        </head><body>
-        <h2>Formulier DrugGegevens</h2>";
+        </head><body>";
         if(isset($drug)){
-            echo "<form method='post' >
+            echo "<div class='jumbotron'><div class='d-flex justify-content-center'><h2>Formulier DrugGegevens</h2></div>
+        <div class='d-flex justify-content-center'><form method='post' >
         <table>
             <tr><td></td><td>
                 <input type=\"hidden\" name=\"id\" value='$id'/></td></tr>
@@ -289,13 +308,22 @@ class View
             <tr><td>
                 <input class='btn btn-outline-secondary' type='submit' name='updateDrug' value='opslaan'></td><td>
             </td></tr></table>
+            </form></div></div>
+            <div class='d-flex justify-content-center'><h2>Terug</h2></div>
+            <div class='d-flex justify-content-center'>
+            <form action='index.php' method='post'>
+            <input type='hidden' name='showDrugs' value='0'>
+            <input class='btn btn-outline-secondary' type='submit' value='terug'/>
             </form>
+            </div>
         </body>
         </html>";
         }
         else{
             /*de html template */
-            echo "<form method='post' action='index.php'>
+            echo "<div class='jumbotron'><div class='d-flex justify-content-center'><h2>Formulier DrugGegevens</h2></div>
+        <div class='d-flex justify-content-center'>
+        <form method='post' action='index.php'>
         <table>
             <tr><td></td><td>
                 <input type=\"hidden\" name=\"id\" value=''/></td></tr>
@@ -316,7 +344,14 @@ class View
             <tr><td>
                 <input class='btn btn-outline-secondary' type='submit' name='addDrug' value='opslaan'></td><td>
             </td></tr></table>
+            </form></div></div>
+            <div class='d-flex justify-content-center'><h2>Terug</h2></div>
+            <div class='d-flex justify-content-center'>
+            <form action='index.php' method='post'>
+            <input type='hidden' name='showDrugs' value='0'>
+            <input class='btn btn-outline-secondary' type='submit' value='terug'/>
             </form>
+            </div>
         </body>
         </html>";
         }
@@ -332,9 +367,10 @@ class View
                     <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
                     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
                     <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
-        </head><body>
-        <h2>Formulier ReceiptGegevens</h2>";
-        echo "<form method='post' action='index.php'>
+        </head><body>";
+        echo "<div class='jumbotron'><div class='d-flex justify-content-center'><h2>Formulier ReceiptGegevens</h2></div>
+        <div class='d-flex justify-content-center'>
+        <form method='post' action='index.php'>
         <table>
          <div>
              <input type=\"hidden\" name=\"patientid\" value='$id'/>
@@ -362,14 +398,17 @@ class View
             <input type='submit' name='addReceipt' value='add Receipt'>      
          </div>
             </table>
-            </form>
-         <div>
+            </form></div></div>
+            <div class='d-flex justify-content-center'>
+            <h2>terug</h2>
+            </div>
+         <div class='d-flex justify-content-center'>
             <form action='index.php' method='post'>
-                <input type='hidden' name='showPatienten' value='0'>
-                <input class='btn btn-outline-secondary' type='submit' value='terug'/>
+            <input type='hidden' name='showPatienten' value='0'>
+            <input class='btn btn-outline-secondary' type='submit' value='terug'/>
             </form>
-         </div>
-         <h2>all drugs</h2>
+            </div>
+         <h2 class='d-flex justify-content-center'>all drugs</h2>
         </body>
         </html>";
         if($drugs !== null) { echo "
@@ -387,6 +426,84 @@ class View
                             </table>
                         </div></div>";
             }
-        };
+        }
+    }
+    public function showReceipt($id){
+        $recept = $this->model->selectReceipt($id);
+        if ($recept){
+        $drug = $this->model->selectDrug($recept->drugid);
+
+        echo "<!DOCTYPE html>
+        <html lang=\"en\">
+        <head>
+            <meta charset=\"UTF-8\">
+            <title>Beheer druggegevens</title>
+            <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+                    <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
+                    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
+                    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
+        </head><body>";
+        echo "
+                            <div class='d-flex justify-content-center jumbotron'>
+                            <h2>ReceiptGegevens</h2>
+                            </div>
+                            
+                            <div class='d-flex justify-content-center jumbotron'>
+                            <table class='table-striped '>
+                            <tr><th>dosis :</th><th> $recept->notitie</th></tr>
+                            <tr><th>duur :</th><th> $recept->duration</th></tr>
+                            <tr><th>herhaling :</th><th> $recept->herhaling</th></tr>
+                            <tr><th>datum :</th><th> $recept->date</th></tr>
+                            </table>
+                            </div>
+                            
+                            <div class='d-flex justify-content-center jumbotron'>
+                            <h2>drug gegevens</h2>
+                            </div>
+                            
+                            <div class='d-flex justify-content-center jumbotron'>
+                            <table class='table-striped '><tr>
+                            <th>naam :</th><th> $drug->naam</th></tr>
+                            <tr><th>maker :</th><th> $drug->maker</th></tr>
+                            <tr><th>compensated :</th><th> $drug->compensated</th></tr>
+                            <tr><th>side_efect :</th><th> $drug->side_efect</th></tr>
+                            <tr><th>benefits :</th><th> $drug->benefits</th></tr> 
+                            </table>
+                            </div>
+                            
+                            <div class='d-flex justify-content-center'><h2>Terug</h2></div>
+                            <div class='d-flex justify-content-center'>
+                            <form action='index.php' method='post'>
+                            <input type='hidden' name='showPatienten' value='0'>
+                            <input class='btn btn-outline-secondary' type='submit' value='terug'/>
+                            </form>
+                            </div>";
+        }else{
+            echo "<!DOCTYPE html>
+        <html lang=\"en\">
+        <head>
+            <meta charset=\"UTF-8\">
+            <title>Beheer druggegevens</title>
+            <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+                    <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
+                    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
+                    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
+        </head><body>";
+            echo "<div class='d-flex justify-content-center jumbotron'>
+                  <h2>ReceiptGegevens</h2>
+                  </div>
+                  
+                  <div class='d-flex justify-content-center jumbotron'>
+                  <h2>er is geen recept</h2>
+                  </div>
+                  
+                  <div class='d-flex justify-content-center'><h2>Terug</h2></div>
+                  <div class='d-flex justify-content-center'>
+                  <form action='index.php' method='post'>
+                  <input type='hidden' name='showPatienten' value='0'>
+                  <input class='btn btn-outline-secondary' type='submit' value='terug'/>
+                  </form>
+                  </div>";
+        }
     }
 }

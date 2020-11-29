@@ -32,6 +32,9 @@ class Controller
     public function showFormPatientAction($id=null){
         $this->view->showFormPatienten($id);
     }
+    public function showReceiptAction($id){
+        $this->view->showReceipt($id);
+    }
     public function addReceiptAction(){
         $patientid = filter_input(INPUT_POST,'patientid');
         $drugid = filter_input(INPUT_POST,'drugid');

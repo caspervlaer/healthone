@@ -112,6 +112,20 @@ class Model
         }
         return null;
     }
+    public function selectReceipt($id){
+        $this->makeConnection();
+        $selection = $this->database->prepare(
+            'SELECT * FROM `receipt` 
+            WHERE `receipt`.`patientid` =:id');
+        $selection->bindParam(":id",$id);
+        $result = $selection ->execute();
+        if($result){
+            $selection->setFetchMode(\PDO::FETCH_CLASS, \model\Recept::class);
+            $recept = $selection->fetch();
+            return $recept;
+        }
+        return null;
+    }
     public function deletePatient($id){
         $this->makeConnection();
         $selection = $this->database->prepare(
@@ -216,8 +230,8 @@ class Model
         $result = $selection ->execute();
         if($result){
             $selection->setFetchMode(\PDO::FETCH_CLASS, \model\Drug::class);
-            $patient = $selection->fetch();
-            return $patient;
+            $drug = $selection->fetch();
+            return $drug;
         }
         return null;
     }
