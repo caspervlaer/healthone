@@ -7,26 +7,32 @@ use controller\Controller;
 include_once ("controller/Controller.php");
 
 $controller = new Controller();
+//this function starts the session
 session_start();
 
-// READ : it will show u the patienten screen
+// READ : it will show u the patienten form screen
 if(isset($_POST['showForm']))
 {
     $controller->showFormPatientAction( $_POST['showForm']);
 }
+// READ : it will show u the drug form screen
 else if (isset($_POST['showDrugForm']))
 {
     $controller->showDrugFormAction($_POST['showDrugForm']);
 }
+// READ : it will show u the patienten screen
 else if (isset($_POST['showPatienten'])){
     $controller->readPatientenAction();
 }
+// READ : it will show u the create receipt screen
 else if (isset($_POST['showCreateReceipt'])){
     $controller->showReceiptFormAction($_POST['showCreateReceipt']);
 }
+// READ : it will show u the receipt screen screen
 else if (isset($_POST['showReceipt'])){
     $controller->showReceiptAction($_POST['showReceipt']);
 }
+// CREATE : it will add a receipt to a patient
 else if (isset($_POST['addReceipt'])){
     $controller->addReceiptAction();
 }
@@ -36,14 +42,17 @@ else if(isset($_POST['update']))
 {
     $controller->updatePatientAction();
 }
+// READ : it will show u the drug screen
 else if (isset($_POST['showDrugs']))
 {
     $controller->showDrugsAction();
 }
+// DELETE : it will remove a drug
 else if (isset($_POST['deleteDrug']))
 {
     $controller->deleteDrugAction($_POST['deleteDrug']);
 }
+// CREATE : it will add a drug
 else if (isset($_POST['addDrug']))
 {
     $controller->addDrugAction();
@@ -70,6 +79,7 @@ else if (isset($_POST['login'])){
 else if (isset($_POST['logout'])){
     $controller->logoutAction();
 }
+// UPDATE : it will update a drug
 else if (isset($_POST['updateDrug'])){
     $controller->updateDrugAction();
 }
