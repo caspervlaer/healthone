@@ -175,7 +175,7 @@ class Model
     }
     public function logout(){
         $_SESSION['loggedin']="false";
-        session_unset();
+
     }
     public function deleteDrug($id){
         $this->makeConnection();
