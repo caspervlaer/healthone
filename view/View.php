@@ -53,13 +53,14 @@ class View
                             </div>
                             <div class='d-flex justify-content-center'>
                                <h2>Patienten overzicht</h2> <form action='index.php' method='post'>
-                            </div>
+                            </div>"; if ($_SESSION['roles'] == 'arts' || $_SESSION['roles'] == 'admin'){
+                                echo "
                             <div class='d-flex justify-content-center'>
                                <input type='hidden' name='showForm' value='0'>
                                <input class='btn btn-outline-secondary' type='submit' value='toevoegen'/>
                                </form></div><br />
                             </div>
-                                </body></html>";
+                                </body></html>";}
         if($patienten !== null) { echo "
                         <div class='row d-flex justify-content-center'>";
             foreach ($patienten as $patient) {
@@ -73,13 +74,13 @@ class View
                             <tr><th>geboortedatum :</th><th> $patient->geboortedatum</th></tr>
                             <tr><th>soortverzekering :</th><th> $patient->soortverzekering</th></tr> 
                             </table>
-                        </div>
+                        </div>"; if($_SESSION['roles'] == 'arts' || $_SESSION['roles'] == 'admin'){echo"
                         <div class='d-flex justify-content-center'>
                                       <form action='index.php' method='post'>
                                        <input type='hidden' name='showForm' value='$patient->id'><input class='btn btn-outline-secondary' type='submit' value='wijzigen'/></form>
                                         <form action='index.php' method='post'>
                                        <input type='hidden' name='delete' value='$patient->id'><input class='btn btn-outline-secondary' type='submit' value='verwijderen'/></form>
-                        </div>
+                        </div>";} echo"
                         <div class='d-flex justify-content-center'>
                              <form action='index.php' method='post'>
                              <input type='hidden' name='showCreateReceipt' value='$patient->id'><input class='btn btn-outline-secondary' type='submit' value='add receipt'></form>
