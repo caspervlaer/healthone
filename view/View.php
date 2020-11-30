@@ -16,7 +16,7 @@ class View
     // this will show u the patienten page
     public function showPatienten($result = null){
         $patienten = $this->model->getPatienten();
-        $users = $this->model->getUser();
+        $users = $this->model->getUser($_SESSION['user']);
         $receipts = $this->model->getReceipts();
 
         /*de html template */

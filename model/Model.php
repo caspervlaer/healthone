@@ -79,10 +79,12 @@ class Model
         return null;
     }
     //this will make a connection to the database and returns specific information
-    public function getUser(){
+    public function getUser($name){
         $this->makeConnection();
-        $selection = $this->database->query('SELECT * FROM `users`');
-        if($selection){
+        $selection = $this->database->prepare('SELECT * FROM `users` WHERE `users` . `name` = :name');
+        $selection->bindParam(":name",$name);
+        $result = $selection ->execute();
+        if( $result){
             $selection->setFetchMode(\PDO::FETCH_CLASS, \model\User::class);
             $user = $selection->fetch();
             if ($user){
