@@ -382,7 +382,7 @@ class View
          </div><div>
             <input type='hidden' name='id' value=''>
          </div><div>
-            <label>notitie</label>
+            <label>Arts</label>
          </div><div>
             <input type=\"text\" name='notitie' value= ''/>
          </div><div>
@@ -456,7 +456,7 @@ class View
                             
                             <div class='d-flex justify-content-center jumbotron'>
                             <table class='table-striped '>
-                            <tr><th>dosis :</th><th> $recept->notitie</th></tr>
+                            <tr><th>Arts :</th><th> $recept->notitie</th></tr>
                             <tr><th>duur :</th><th> $recept->duration</th></tr>
                             <tr><th>herhaling :</th><th> $recept->herhaling</th></tr>
                             <tr><th>datum :</th><th> $recept->date</th></tr>
